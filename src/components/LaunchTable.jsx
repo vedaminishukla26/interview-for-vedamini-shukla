@@ -61,7 +61,7 @@ const LaunchTable = () => {
     }
 
     return (
-        <div className="w-full pt-24 px-4 md:px-16">
+        <div className="w-full px-4 md:px-16">
             <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
                 <TableHeader />
                 <div className="relative">

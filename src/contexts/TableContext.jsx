@@ -2,7 +2,9 @@ import { createContext, useState, useEffect, useCallback } from 'react'
 
 const TableContext = createContext(null)
 
-const PAGE_LIMIT = 12
+const PAGE_LIMIT = 8
+
+const mapsReady = (lp, rk) => Object.keys(lp).length && Object.keys(rk).length
 
 export const TableProvider = ({ children }) => {
   const [launches, setLaunches] = useState([])
@@ -12,16 +14,28 @@ export const TableProvider = ({ children }) => {
   const [error, setError] = useState(null)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [statusFilter, setStatusFilter] = useState('all')
+  const [dateRange, setDateRange] = useState({ from: null, to: null })
 
   const fetchLaunches = useCallback(async (pageNumber = 1) => {
     setLoading(true)
     setError(null)
     try {
+      const query = {}
+      if (dateRange.from && dateRange.to) {
+        query.date_utc = {
+          $gte: dateRange.from.toISOString(),
+          $lte: dateRange.to.toISOString(),
+        }
+      }
+      if (statusFilter === 'success') query.success = true
+      else if (statusFilter === 'failed') query.success = false
+      else if (statusFilter === 'upcoming') query.upcoming = true
       const res = await fetch('https://api.spacexdata.com/v5/launches/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          query: {},
+          query,
           options: {
             page: pageNumber,
             limit: PAGE_LIMIT,
@@ -50,7 +64,7 @@ export const TableProvider = ({ children }) => {
     } finally {
       setLoading(false)
     }
-  }, [rocketMap, launchpadMap])
+  }, [rocketMap, launchpadMap, dateRange, statusFilter])
 
   useEffect(() => {
     const fetchMeta = async () => {
@@ -80,10 +94,10 @@ export const TableProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    if (Object.keys(launchpadMap).length && Object.keys(rocketMap).length) {
+    if (mapsReady(launchpadMap, rocketMap)) {
       fetchLaunches(1)
     }
-  }, [launchpadMap, rocketMap, fetchLaunches])
+  }, [launchpadMap, rocketMap, dateRange, fetchLaunches])
 
   const goToPage = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return
@@ -99,6 +113,10 @@ export const TableProvider = ({ children }) => {
     limit: PAGE_LIMIT,
     launchpadMap,
     rocketMap,
+    statusFilter,
+    setStatusFilter,
+    dateRange,
+    setDateRange,
     goToPage,
     refetchCurrent: () => fetchLaunches(page),
   }

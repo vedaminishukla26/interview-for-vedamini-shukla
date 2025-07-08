@@ -1,8 +1,12 @@
+import { useTableContext } from '../hooks/useTableContext'
+
 const TableRow = ({ item }) => {
+    const { openLaunch } = useTableContext()
 
     return (
         <div
-            className={`flex items-center px-4 py-2 border-b border-gray-200 hover:bg-gray-50 transition-colors`}
+            onClick={() => openLaunch(item.raw || item)}
+            className={`flex items-center px-4 py-2 border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer`}
         >
             <div className="w-12 flex-shrink-0 px-2 text-gray-700 text-sm">
                 {item.no}

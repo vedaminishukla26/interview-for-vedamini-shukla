@@ -16,6 +16,7 @@ export const TableProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1)
   const [statusFilter, setStatusFilter] = useState('all')
   const [dateRange, setDateRange] = useState({ from: null, to: null })
+  const [activeLaunch, setActiveLaunch] = useState(null)
 
   const fetchLaunches = useCallback(async (pageNumber = 1) => {
     setLoading(true)
@@ -40,6 +41,11 @@ export const TableProvider = ({ children }) => {
             page: pageNumber,
             limit: PAGE_LIMIT,
             sort: { date_utc: 'desc' },
+            populate: [
+              { path: 'rocket', select: 'name type company country payload_weights' },
+              { path: 'launchpad', select: 'name full_name locality region' },
+              { path: 'payloads', select: 'type orbit' },
+            ],
           },
         }),
       })
@@ -48,13 +54,14 @@ export const TableProvider = ({ children }) => {
       const mapped = (data.docs || []).map((doc, idx) => ({
         no: (pageNumber - 1) * PAGE_LIMIT + idx + 1,
         lauchDate: doc.date_utc ? new Date(doc.date_utc).toLocaleString() : 'N/A',
-        location: launchpadMap[doc.launchpad] ?? doc.launchpad,
+        location: doc.launchpad?.name ?? launchpadMap[doc.launchpad] ?? 'N/A',
         mission: doc.name,
         orbit:
           doc.payloads?.[0]?.orbit ??
           rocketMap[doc.rocket]?.orbit ?? 'N/A',
         launchStatus: doc.success === null ? 'Upcoming' : doc.success ? 'Success' : 'Failed',
-        rocket: rocketMap[doc.rocket]?.name ?? doc.rocket,
+        rocket: doc.rocket?.name ?? rocketMap[doc.rocket]?.name ?? 'N/A',
+        raw: doc,
       }))
       setLaunches(mapped)
       setPage(data.page || 1)
@@ -119,6 +126,9 @@ export const TableProvider = ({ children }) => {
     setDateRange,
     goToPage,
     refetchCurrent: () => fetchLaunches(page),
+    activeLaunch,
+    openLaunch: (launch) => setActiveLaunch(launch),
+    closeLaunch: () => setActiveLaunch(null),
   }
 
   return <TableContext.Provider value={value}>{children}</TableContext.Provider>

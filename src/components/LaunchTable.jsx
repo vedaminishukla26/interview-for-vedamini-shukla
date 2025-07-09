@@ -5,10 +5,11 @@ import TableRow from "@/components/TableRow";
 import { useTableContext } from "@/hooks/useTableContext";
 import Loader from "@/components/Loader";
 import Pagination from "@/components/Pagination";
+import LaunchCard from '@/components/LaunchCard';
 
 const LaunchTable = () => {
 
-    const { launches, loading, error } = useTableContext();
+    const { launches, loading, error, openLaunch } = useTableContext();
     
     if (loading && launches.length === 0) {
         return (
@@ -60,7 +61,8 @@ const LaunchTable = () => {
 
     return (
         <div className="w-full px-4 md:px-16">
-            <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+            {/* Desktop table */}
+            <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden hidden md:block">
                 <TableHeader />
                 <div className="relative">
                     <List
@@ -77,6 +79,14 @@ const LaunchTable = () => {
                     </List>
                 </div>
             </div>
+
+            {/* Mobile cards */}
+            <div className="space-y-4 md:hidden max-w-full mx-auto px-2 overflow-x-hidden">
+                {launches.map((l) => (
+                    <LaunchCard key={l.no} launch={l} onPress={openLaunch} />
+                ))}
+            </div>
+
             <Pagination />
         </div>
     );

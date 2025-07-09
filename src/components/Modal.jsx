@@ -14,7 +14,7 @@ const Modal = ({ open, onClose, children }) => {
   if (!open) return null
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="max-w-[95vw] sm:max-w-[400px] md:max-w-[480px] mx-2 sm:mx-4 md:mx-0 bg-white rounded-lg shadow p-4 md:p-6 box-border overflow-x-hidden">
+      <div className="max-w-[95vw] sm:max-w-[400px] md:max-w-[950px] mx-2 sm:mx-4 md:mx-0 bg-white rounded-lg shadow p-4 md:p-6 box-border overflow-x-hidden">
         {children}
       </div>
     </div>

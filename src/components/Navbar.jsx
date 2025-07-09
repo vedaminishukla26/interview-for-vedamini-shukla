@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import logo from '../assets/Logo.svg'
 
 const Navbar = () => {
@@ -15,4 +16,4 @@ const Navbar = () => {
     );
   };
   
-  export default Navbar;
+  export default memo(Navbar);

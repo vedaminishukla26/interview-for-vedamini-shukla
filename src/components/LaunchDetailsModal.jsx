@@ -3,27 +3,8 @@ import Modal from './Modal'
 import { useTableContext } from '../hooks/useTableContext'
 import { format } from 'date-fns'
 import { X, ExternalLink, Link as LinkIcon, Youtube } from 'lucide-react'
-
-const Badge = ({ status }) => (
-  <span
-    className={`px-2 py-1 rounded-full text-xs font-medium ${
-      status === 'Failed'
-        ? 'bg-[#FDE2E1] text-red-800'
-        : status === 'Success'
-        ? 'bg-[#DEF7EC] text-green-800'
-        : 'bg-[#FEF3C7] text-yellow-800'
-    }`}
-  >
-    {status}
-  </span>
-)
-
-const Row = ({ label, value }) => (
-  <div className="flex justify-between py-2 text-sm border-b last:border-none">
-    <span className="text-gray-600 whitespace-nowrap mr-4">{label}</span>
-    <span className="text-gray-900 text-right flex-1 truncate">{value}</span>
-  </div>
-)
+import Badge from './Badge'
+import Row from './Row'
 
 const LaunchDetailsModal = () => {
   const { activeLaunch, closeLaunch } = useTableContext()

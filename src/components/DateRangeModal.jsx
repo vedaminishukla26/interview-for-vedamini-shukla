@@ -1,8 +1,8 @@
 import { memo, useState, useEffect } from 'react'
 import { addDays, subMonths, subYears, startOfDay, endOfDay } from 'date-fns'
-import Modal from './Modal'
-import CustomRangeCalendar from './CustomRangeCalendar'
-import { useTableContext } from '../hooks/useTableContext'
+import Modal from '@/components/Modal'
+import CustomRangeCalendar from '@/components/CustomRangeCalendar'
+import { useTableContext } from '@/hooks/useTableContext'
 
 const presets = [
   { label: 'Past week', range: () => ({ from: startOfDay(addDays(new Date(), -7)), to: endOfDay(new Date()) }) },

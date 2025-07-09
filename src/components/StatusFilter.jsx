@@ -1,7 +1,7 @@
 import { useState, memo } from 'react'
 import { ChevronDown, Filter } from 'lucide-react'
-import { useTableContext } from '../hooks/useTableContext'
-import statusOptions from '../constants/statusOptions'
+import { useTableContext } from '@/hooks/useTableContext'
+import statusOptions from '@/constants/statusOptions'
 
 const StatusFilter = () => {
   const { statusFilter, setStatusFilter } = useTableContext()

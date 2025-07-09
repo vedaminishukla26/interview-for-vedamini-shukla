@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { FixedSizeList as List } from 'react-window'
-import TableHeader from "./TableHeader";
-import TableRow from "./TableRow";
-import { useTableContext } from "../hooks/useTableContext";
-import Loader from "./Loader";
-import Pagination from "./Pagination";
+import TableHeader from "@/components/TableHeader";
+import TableRow from "@/components/TableRow";
+import { useTableContext } from "@/hooks/useTableContext";
+import Loader from "@/components/Loader";
+import Pagination from "@/components/Pagination";
 
 const LaunchTable = () => {
 

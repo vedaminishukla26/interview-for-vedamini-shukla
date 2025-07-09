@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useCallback } from 'react'
-import { buildLaunchQuery, buildOptions, mapLaunchDocToRow } from '../utils/launchUtils'
+import { buildLaunchQuery, buildOptions, mapLaunchDocToRow } from '@/utils/launchUtils'
 
 const TableContext = createContext(null)
 

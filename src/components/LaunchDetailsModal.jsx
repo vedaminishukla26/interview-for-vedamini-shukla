@@ -1,10 +1,10 @@
 import { memo } from 'react'
-import Modal from './Modal'
-import { useTableContext } from '../hooks/useTableContext'
-import { format } from 'date-fns'
+import Modal from '@/components/Modal'
+import { useTableContext } from '@/hooks/useTableContext'
+import { formatUtcDate } from '@/utils/dateUtils'
 import { X, ExternalLink, Link as LinkIcon, Youtube } from 'lucide-react'
-import Badge from './Badge'
-import Row from './Row'
+import Badge from '@/components/Badge'
+import Row from '@/components/Row'
 
 const LaunchDetailsModal = () => {
   const { activeLaunch, closeLaunch } = useTableContext()
@@ -15,10 +15,7 @@ const LaunchDetailsModal = () => {
   const rocket = l.rocket || {}
   const launchpad = l.launchpad || {}
 
-  const formattedDate = (() => {
-    const d = l.date_utc ? new Date(l.date_utc) : null
-    return d && !isNaN(d) ? format(d, 'dd MMMM yyyy HH:mm') : '—'
-  })()
+  const formattedDate = formatUtcDate(l.date_utc)
 
   return (
     <Modal open={!!l} onClose={closeLaunch}>

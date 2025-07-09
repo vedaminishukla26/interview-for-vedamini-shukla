@@ -1,8 +1,8 @@
 import { memo, useMemo } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useTableContext } from '../hooks/useTableContext'
+import { useTableContext } from '@/hooks/useTableContext'
 import React from 'react'
-import computePagesToShow from '../utils/paginationUtils'
+import computePagesToShow from '@/utils/paginationUtils'
 
 const Pagination = () => {
   const { page, totalPages, goToPage } = useTableContext()

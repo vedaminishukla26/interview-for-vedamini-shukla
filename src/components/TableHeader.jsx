@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import tableColumns from '../constants/tableColumns';
+import tableColumns from '@/constants/tableColumns';
 
 const TableHeader = () => {
     return (

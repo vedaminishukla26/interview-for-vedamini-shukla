@@ -1,3 +1,5 @@
+import { formatUtcDate } from '@/utils/dateUtils'
+
 export const buildLaunchQuery = ({ dateRange, statusFilter }) => {
   const query = {};
   if (dateRange?.from && dateRange?.to) {
@@ -31,7 +33,7 @@ export const mapLaunchDocToRow = (doc, index, pageNumber, pageLimit) => {
 
   return {
     no: (pageNumber - 1) * pageLimit + index + 1,
-    lauchDate: doc.date_utc ? new Date(doc.date_utc).toLocaleString() : 'N/A',
+    lauchDate: formatUtcDate(doc.date_utc),
     location: launchpad.name ?? launchpad.full_name ?? launchpad.locality ?? 'N/A',
     mission: doc.name,
     orbit: payload.orbit ?? rocket.payload_weights?.[0]?.id?.toUpperCase() ?? 'N/A',

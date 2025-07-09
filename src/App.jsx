@@ -1,8 +1,8 @@
-import LaunchTable from "./components/LaunchTable"
-import Navbar from "./components/Navbar"
-import CalendarDropdown from "./components/CalendarDropdown"
-import StatusFilter from "./components/StatusFilter";
-import LaunchDetailsModal from "./components/LaunchDetailsModal";
+import LaunchTable from "@/components/LaunchTable"
+import Navbar from "@/components/Navbar"
+import CalendarDropdown from "@/components/CalendarDropdown"
+import StatusFilter from "@/components/StatusFilter";
+import LaunchDetailsModal from "@/components/LaunchDetailsModal";
 function App() {
   
   return (

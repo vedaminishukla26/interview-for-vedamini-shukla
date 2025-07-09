@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import loaderSvg from '../assets/Loader.svg'
+import loaderSvg from '@/assets/Loader.svg'
 
 const Loader = () => (
   <div className="flex justify-center items-center h-40">

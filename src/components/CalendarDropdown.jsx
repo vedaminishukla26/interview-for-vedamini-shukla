@@ -1,18 +1,14 @@
 import { useState, memo } from 'react'
 import { CalendarDays } from 'lucide-react'
-import { format } from 'date-fns'
-import DateRangeModal from './DateRangeModal'
-import { useTableContext } from '../hooks/useTableContext'
+import DateRangeModal from '@/components/DateRangeModal'
+import { useTableContext } from '@/hooks/useTableContext'
+import { dateRangeLabel } from '@/utils/dateUtils'
 
 function CalendarDropdown() {
   const { dateRange } = useTableContext()
   const [open, setOpen] = useState(false)
 
-  const label = !dateRange.from
-    ? 'Select dates'
-    : !dateRange.to
-    ? format(dateRange.from, 'MMM d, yyyy')
-    : `${format(dateRange.from, 'MMM d')} - ${format(dateRange.to, 'MMM d, yyyy')}`
+  const label = dateRangeLabel(dateRange)
 
   return (
     <>

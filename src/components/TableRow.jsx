@@ -1,6 +1,6 @@
-import { useTableContext } from '../hooks/useTableContext'
-import Badge from './Badge'
-import tableColumns from '../constants/tableColumns'
+import { useTableContext } from '@/hooks/useTableContext'
+import Badge from '@/components/Badge'
+import tableColumns from '@/constants/tableColumns'
 
 const TableRow = ({ item }) => {
     const { openLaunch } = useTableContext()
